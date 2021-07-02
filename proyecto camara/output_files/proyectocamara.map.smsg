@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at driver_cam.v(31): always construct contains both blocking and non-blocking assignments File: C:/Users/USER/Documents/2021-1/digital ll/proyecto camara/driver_cam.v Line: 31
