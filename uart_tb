@@ -11,12 +11,12 @@
 `include "uart_rx.v"
  
 module uart_tb ();
- 
-  // Testbench uses a 10 MHz clock
+ //La instanciación de los modulos RX Y TX, puede ser tomado de aca
+  // Testbench uses a 125 MHz clock
   // Want to interface to 115200 baud UART
-  // 10000000 / 115200 = 87 Clocks Per Bit.
+  // 125000000 / 115200 = 1085 Clocks Per Bit.
   parameter c_CLOCK_PERIOD_NS = 100;
-  parameter c_CLKS_PER_BIT    = 87;
+  parameter c_CLKS_PER_BIT    = 1085;
   parameter c_BIT_PERIOD      = 8600;
    
   reg r_Clock = 0;
@@ -54,19 +54,19 @@ module uart_tb ();
    
    
   uart_rx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_RX_INST
-    (.i_Clock(r_Clock),
-     .i_Rx_Serial(r_Rx_Serial),
+    (.i_Clock(r_Clock),     //Clock de la tarjeta
+     .i_Rx_Serial(r_Rx_Serial), //Data a recibir
      .o_Rx_DV(),
-     .o_Rx_Byte(w_Rx_Byte)
+     .o_Rx_Byte(w_Rx_Byte) //Confirmación de que estan recibiendo el numero de bytes correcto
      );
    
   uart_tx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_TX_INST
-    (.i_Clock(r_Clock),
-     .i_Tx_DV(r_Tx_DV),
-     .i_Tx_Byte(r_Tx_Byte),
+    (.i_Clock(r_Clock),  //Clock de la tarjeta
+     .i_Tx_DV(r_Tx_DV),  // Activia o no la transmision
+     .i_Tx_Byte(r_Tx_Byte), //Data de transmision
      .o_Tx_Active(),
      .o_Tx_Serial(),
-     .o_Tx_Done(w_Tx_Done)
+     .o_Tx_Done(w_Tx_Done) // La transmision se realizo
      );
  
    
