@@ -57,16 +57,16 @@ module uart_tb ();
     (.i_Clock(r_Clock),     //Clock de la tarjeta
      .i_Rx_Serial(r_Rx_Serial), //Data a recibir
      .o_Rx_DV(),
-     .o_Rx_Byte(w_Rx_Byte) //Confirmación de que estan recibiendo el numero de bytes correcto
+     .o_Rx_Byte(w_Rx_Byte) //Confirmación de que estan recibiendo el numero de bytes correcto,(Se puede ignorar, solo es para mandar una señal de confirmacion)
      );
    
   uart_tx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_TX_INST
     (.i_Clock(r_Clock),  //Clock de la tarjeta
-     .i_Tx_DV(r_Tx_DV),  // Activia o no la transmision
+     .i_Tx_DV(r_Tx_DV),  // Activa o no la transmision, utilizar las variables que ya estan de la camara y los condicionales para habilitar o no la transmision
      .i_Tx_Byte(r_Tx_Byte), //Data de transmision
      .o_Tx_Active(),
      .o_Tx_Serial(),
-     .o_Tx_Done(w_Tx_Done) // La transmision se realizo
+     .o_Tx_Done(w_Tx_Done) // La transmision se realizo (Se puede ignorar, solo es para mandar una señal de confirmacion)
      );
  
    
