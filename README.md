@@ -1,5 +1,6 @@
 # ProyectoDigital2021_1
-Modulo Driver CAM\\
+Modulo Driver CAM
+
 Este modulo es el encargado de la recepcion de los datos de imagen, por ello requiere tener como entradas el P_clk, D, VSYNC y HREF que son las señales qeu da la camara para una correcta sincronizacion y toma de datos. Ademas requiere la señal de car_stop para saber cuendo toma datos y cuando no.
 Las salidas que tiene son regwrite para dar la indicacion de escribir en la memoria, data_w es el dato de tres bits que contiene la informacion en RGB de cada pixel, addr que es la direccion de escritura en la memoria y read que es la señal que indica cuando se debe leer la memoria para realizar el analisis del color. 
 
