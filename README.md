@@ -222,9 +222,6 @@ Luego se verifica que ya se hizo la lectura de toda la memoria para comparar los
 		addr_o = 0;
 		end
 	end
-	//initial begin 
-	//    data = 0;
-	//  end
 	endmodule
 	
 **Modulo Proyecto camara**
@@ -261,14 +258,7 @@ Este es el modulo top del proyecto, es en donde se instancian los demas modulos,
 	wire RED;
 	wire GREEN;
 	wire BLUE;
-
-	//wire image_s;
-	//wire [DW-1:0] data_2;
-	//wire [AW-1:0] addr_2;
-
-	//assign X_clk=clk_r; 
-
-
+	
 	clk_wiz_0 divisordefrecuencia(
 	.clk_in1(clk),
 	.clk_out1(X_clk)
