@@ -21,8 +21,8 @@ int grados;
 
 //--------------ultrasonido 2
 
-#define echoPin 7 // attach pin D2 Arduino to pin Echo of HC-SR04
-#define trigPin 10 // pwm
+#define echoPin 2 // attach pin D2 Arduino to pin Echo of HC-SR04
+#define trigPin 8 // pwm
 
 // defines variables
 
