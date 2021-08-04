@@ -1,5 +1,6 @@
 # ProyectoDigital2021_1
 Modulo Driver CAM
+
 	module driver_cam#(
 	parameter AW = 15
 	)
@@ -112,7 +113,9 @@ Modulo Driver CAM
 
 
 	endmodule
+	
 Modulo BUffer ram
+
 	module buffer_ram#(
 	parameter AW = 15, //bits de la direccion
 	parameter DW = 3,
@@ -149,6 +152,7 @@ Modulo BUffer ram
 	assign data_out = out;
 
 	endmodule
+	
 Modulo Colors
 
 	module colors#(
@@ -208,6 +212,7 @@ Modulo Colors
 	//    data = 0;
 	//  end
 	endmodule
+	
 Modulo Proyecto camara
 
 	module proyectocamara#(
