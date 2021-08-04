@@ -1,4 +1,4 @@
-
+A continuacion se presenta la descripcion de los diferentes modulos que componene el proyecto del funcionamiento de la camara OV7670, la toma de los datos, el almacenamiento en la memoria y su respectivo procesamiento para la identificacion de los colores. Se presentan los modulos proyectocamara, driver_cam, Buffer_ram y colors. 
 
 # ProyectoDigital2021_1
 **Modulo Driver CAM**
