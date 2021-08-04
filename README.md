@@ -117,7 +117,9 @@ A continuacion se tiene la maquina de estados, se presentan tres estados, el pri
 	endmodule
 	
 Modulo BUffer Ram
-Este modulo crea una memoria para guardar los datos que salen del modulo driver_cam 
+
+Este modulo crea una memoria para guardar los datos que salen del modulo driver_cam, requiere de un clock para recorrer la memoria, addr_in y data_in son la direccion de entrada y el dato de entrada respectivamente, regwrite permite la escritura en la memoria, addr_out es la direccion de lectura y data_out es el dato de salida. 
+Adicionalmente requiere de un archivo precargado, RGMimage.mem en este caso, para inicializar todas las posiciones de memoria con algun valor y evitar indeterminaciones. 
 
 	module buffer_ram#(
 	parameter AW = 15, //bits de la direccion
@@ -157,6 +159,8 @@ Este modulo crea una memoria para guardar los datos que salen del modulo driver_
 	endmodule
 	
 Modulo Colors
+
+
 
 	module colors#(
 	parameter AW = 15
@@ -217,6 +221,8 @@ Modulo Colors
 	endmodule
 	
 Modulo Proyecto camara
+
+
 
 	module proyectocamara#(
 	parameter AW = 15, DW = 3
