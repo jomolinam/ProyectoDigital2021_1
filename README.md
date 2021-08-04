@@ -1,6 +1,7 @@
 # ProyectoDigital2021_1
 Modulo Driver CAM
-
+Este modulo es el encargado de la recepcion de los datos de imagen, por ello requiere tener como entradas el P_clk, D, VSYNC y HREF que son las señales qeu da la camara para una correcta sincronizacion y toma de datos. Ademas requiere la señal de car_stop para saber cuendo toma datos y cuando no.
+Las salidas que tiene son regwrite para dar la indicacion de escribir en la memoria, data_w es el dato de tres bits que contiene la informacion en RGB de cada pixel, addr que es la direccion de escritura en la memoria y read que es la señal que indica cuando se debe leer la memoria para realizar el analisis del color. 
 	module driver_cam#(
 	parameter AW = 15
 	)
@@ -26,6 +27,8 @@ Modulo Driver CAM
 	reg [AW-1:0]addr_o = 0;
 	reg image_select = 0;
 
+Se debe verificar cuando caption y HREF estan en alto para saber que la informacioon de una fila de pixeles se debe tomar, adicionalmente se verifica que la direccion maxima dada por la cantidad de pixeles del frame no sea superada. 
+Se utiliza count_pixel para saber si se estan tomando los datos del primer o del segundo byte de informacion de un pixel y dependiendo el caso se realiza una compuerta or entre los 3 bits mas significativos de cada color (RGB) para luego enviar esta informacion a la memoria. 
 
 	always @(posedge P)begin
 	    if(rst==0)begin
@@ -51,9 +54,7 @@ Modulo Driver CAM
 				 read = 1;
 			end
 			if(addr == 15'd25343)begin
-				 //read = 1;
 				 addr_o = 0;
-				 //image_select = !image_select;
 			end
 			if(VSYNC == 1 && addr < 15'd25343)begin
 				 addr_o = 0;
@@ -65,6 +66,8 @@ Modulo Driver CAM
 		regwrite = 0;
 	    end
 	  end
+
+A continuacion se tiene la maquina de estados, se presentan tres estados, el primero es start en donde se mira si el carro esta quieto o no usando la señal de car_stop y asi avanzar a los demas estados. El segundo estado es capture, se entra en este estado si car_stop es igual a 1 y VSYNC es igual a cero y cuando esto sucede caption se hace igual a 1 indicando que se deben tomar datos y enviarlos a la memoria. El tercer estado es stop, se entra en este estado si car_stop es igual a cero y lo que hace es poner all_stop en 1 para frenar la toma de los datos, la escritura en memoria y ademas la lectura de la memoria, es un estado de espera hasta que el carro se detenga nuevamente.  
 
 	    parameter start=0, capture=1, stop=2;
 	    always @(negedge P)begin
@@ -89,9 +92,6 @@ Modulo Driver CAM
 			caption=1;
 			status = capture;
 		    end
-	//            if(HREF == 0 && VSYNC == 0)begin
-	//                status = capture;
-	//            end
 		    if (VSYNC == 1)begin
 			status = start;
 		    end 
@@ -114,7 +114,8 @@ Modulo Driver CAM
 
 	endmodule
 	
-Modulo BUffer ram
+Modulo BUffer Ram
+Este modulo crea una memoria para guardar los datos que salen del modulo driver_cam 
 
 	module buffer_ram#(
 	parameter AW = 15, //bits de la direccion
