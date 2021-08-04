@@ -118,7 +118,7 @@ A continuacion se tiene la maquina de estados, se presentan tres estados, el pri
 
 	endmodule
 	
-Modulo BUffer Ram
+**Modulo Buffer Ram**
 
 Este modulo crea una memoria para guardar los datos que salen del modulo driver_cam, requiere de un clock para recorrer la memoria, addr_in y data_in son la direccion de entrada y el dato de entrada respectivamente, regwrite permite la escritura en la memoria, addr_out es la direccion de lectura y data_out es el dato de salida. 
 Adicionalmente requiere de un archivo precargado, RGMimage.mem en este caso, para inicializar todas las posiciones de memoria con algun valor y evitar indeterminaciones. 
@@ -160,7 +160,7 @@ Adicionalmente requiere de un archivo precargado, RGMimage.mem en este caso, par
 
 	endmodule
 	
-Modulo Colors
+**Modulo Colors**
 
 Este modulo es el encargado de leer la memoria y analizar cual es el color predominante en el frame correspondiente a los datos guardados. Requiere de la entradas read para habilitar el funcionamiento del modulo, data que es el dato que sale de la memoria y un clock de sincronizacion. 
 Tiene como salidas addr que es la direccion de lectura de la memoria y ademas tres registros (RED, GREEN, BLUE) que daran el dato del color de la imagen. 
@@ -227,7 +227,7 @@ Luego se verifica que ya se hizo la lectura de toda la memoria para comparar los
 	//  end
 	endmodule
 	
-Modulo Proyecto camara
+**Modulo Proyecto camara**
 
 Este es el modulo top del proyecto, es en donde se instancian los demas modulos, se definen las entradas y salidas fisicas necesarias para que el programa funciones las cuales estan relacionadas en el archivo .xdc con los pines fisicos de la FPGA. 
 
