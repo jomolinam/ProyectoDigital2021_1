@@ -160,7 +160,8 @@ Adicionalmente requiere de un archivo precargado, RGMimage.mem en este caso, par
 	
 Modulo Colors
 
-
+Este modulo es el encargado de leer la memoria y analizar cual es el color predominante en el frame correspondiente a los datos guardados. Requiere de la entradas read para habilitar el funcionamiento del modulo, data que es el dato que sale de la memoria y un clock de sincronizacion. 
+Tiene como salidas addr que es la direccion de lectura de la memoria y ademas tres registros (RED, GREEN, BLUE) que daran el dato del color de la imagen. 
 
 	module colors#(
 	parameter AW = 15
@@ -182,6 +183,7 @@ Modulo Colors
 	reg [AW-1:0] BLUE = 0;
 	assign addr = addr_o;
 
+Primero se verifica que read este activo para comenzar con la lectura de la memoria. Luego se van sumando todas las posiciones de memoria que tienen informacion del color rojo de cada pixel (posicion 2 de cada registro de la memoria), de la misma manera se hace con el color verde y azul (posicion 1 y 0 de cada registro respectivamente).
 
 	always @(posedge P)begin
 		if(read == 1)begin
@@ -191,6 +193,9 @@ Modulo Colors
 				BLUE = BLUE + data[0];
 				addr_o = addr_o + 1;
 			end
+			
+Luego se verifica que ya se hizo la lectura de toda la memoria para comparar los tres registros que acumularon informacion sobre cada uno de los colores y asi poder dar informacion de salida sobre cual es el color dominante en el frame, por ejemplo poniendo en 1 el registro de salida RED y los otros dos en 0 si es el caso que la mayoria de registros de la memoria tienen un 1 en su posicion 2.  
+
 				if(addr_o == 15'd25343)begin
 				if(RED > GREEN && RED > BLUE)begin
 					RED_out = 1;
@@ -222,7 +227,7 @@ Modulo Colors
 	
 Modulo Proyecto camara
 
-
+Este es el modulo top del proyecto, es en donde se instancian los demas modulos, se definen las entradas y salidas fisicas necesarias para que el programa funciones las cuales estan relacionadas en el archivo .xdc con los pines fisicos de la FPGA. 
 
 	module proyectocamara#(
 	parameter AW = 15, DW = 3
